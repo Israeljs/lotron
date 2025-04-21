@@ -2,13 +2,9 @@
 // https://tabelas.geradorlotofacil.com/tabela-quantidade-de-dezenas-isoladas
 // https://www.geradorlotofacil.com/blog/filtro-nao-ter-as-dezenas-isoladas/
 // const arr = [01, 04, 07, 08, 10, 11, 12, 13, 14, 17, 19, 20, 22, 23, 25]
+const isItAnIdealNumber = require('../../helper/isItAnIdealNumber')
 
-const numeroIdeal = [00, 01, 02, 03, 04, 05, 06]
-
-const isolatedNumber = (isolatedTens) => {
-  const result = numeroIdeal.includes(isolatedTens)
-  return result
-}
+const idealNumber = [00, 01, 02, 03, 04, 05, 06]
 
 const isolatedTensFilter = (tens) => {
   const isolated = []
@@ -25,7 +21,7 @@ const isolatedTensFilter = (tens) => {
   }
   var isolatedLength = isolated.length
 
-  return [isolatedNumber(isolatedLength), `isolated: ${isolatedLength}`, '3-27 2-25 4-17 1-15']
+  return [isItAnIdealNumber(isolatedLength, idealNumber), `isolated: ${isolatedLength}`, '3-27 2-25 4-17 1-15']
 }
 
 // console.log(isolatedTensFilter(arr))
