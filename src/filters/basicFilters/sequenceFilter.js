@@ -1,10 +1,8 @@
-// const idealList = [3, 4, 5, 6]
-const idealList = [2, 3, 4, 5, 6]
+// filtra os jogos cujo o número de dezenas em sequência se 
+// encontra entre '2' e '6'.
+const isItAnIdealNumber = require('../../helper/isItAnIdealNumber')
 
-const idealNumber = (numberLength) => {
-  const result = idealList.includes(numberLength)
-  return result
-}
+const idealNumber = [2, 3, 4, 5, 6]
 
 const sequenceFilter = (dezena) => {
   let count = 1
@@ -22,9 +20,9 @@ const sequenceFilter = (dezena) => {
   }
   const sequenceNumber = countedSequence.length
 
-  return [idealNumber(sequenceNumber), `sequências: ${sequenceNumber}`, '4-42 3-28 5-20', countedSequence]
+  return [isItAnIdealNumber(sequenceNumber, idealNumber), `sequências: ${sequenceNumber}`, '4-42 3-28 5-20', countedSequence]
 }
-const arr = [01, 02, 03, 05, 06, 07, 08, 10, 11, 12, 13, 14] // [ true, 'sequências: 3', '4-42 3-28 5-20', [ 3, 4, 5 ] ]
-console.log(sequenceFilter(arr))
+// const arr = [01, 02, 03, 05, 06, 07, 08, 10, 11, 12, 13, 14] // [ true, 'sequências: 3', '4-42 3-28 5-20', [ 3, 4, 5 ] ]
+// console.log(sequenceFilter(arr))
 
 module.exports = sequenceFilter
