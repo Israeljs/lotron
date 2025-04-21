@@ -1,3 +1,4 @@
+// Verificar se o jogo não fez 14 ou 15 pontos
 const lastResult = require('../../helper/lastResult')
 
 const isEqual = (result, game) => {
@@ -15,8 +16,9 @@ const isEqual = (result, game) => {
 
 const alreadyWonFilter = (game) => {
   allResults = lastResult()
+  // console.log(allResults);
 
-  return allResults.every((result) => isEqual(result.map(Number), game))
+  return allResults.every((oneResult) => isEqual(oneResult, game))
 }
       
 module.exports = alreadyWonFilter

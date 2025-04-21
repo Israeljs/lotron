@@ -16,5 +16,6 @@ const lastResult = (quantity) => {
   
   return games
 }
-
+// console.log(lastResult()) todos os resultados
+// console.log(lastResult(1)) // último resultado
 module.exports = lastResult
