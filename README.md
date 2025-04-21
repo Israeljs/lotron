@@ -43,4 +43,8 @@ E em seguida, acesse a API no seu navegador em:
 ```shell
 http://localhost:3000/
 ```
+Ou execute o front-end do projeto em
 
+```shell
+https://github.com/Israeljs/lotron-front-end
+```
