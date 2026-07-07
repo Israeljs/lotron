@@ -7,9 +7,17 @@ const resultsFetcher = async () => {
   return response.json();
 };
 
-const tt = async () => {
-  const data = await resultsFetcher();
-  return data;
+const lotofacilResults = async () => {
+  const results = []
+  const concourse = await resultsFetcher()
+  const number = Number(concourse.numero)
+  console.log(number);
+
+  for (let i = number; i > 0; i--) {
+    results.push(await resultsFetcher())
+  }
+  return results
 };
 
-tt().then((data) => console.log(data));
+lotofacilResults().then((data) => console.log(data));
+// console.log(lotofacilResults());
