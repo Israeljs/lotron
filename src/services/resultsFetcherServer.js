@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs')
 
+// Pega um resultado da lotofácil por vez na api da caixa
 const resultsFetcher = async () => {
   const response = await fetch(
     'https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/'
@@ -8,6 +9,7 @@ const resultsFetcher = async () => {
   return response.json();
 };
 
+// pega todos resultados da lotofácil
 const lotofacilResults = async () => {
   const results = []
   const concourse = await resultsFetcher()
@@ -21,6 +23,7 @@ const lotofacilResults = async () => {
   return results
 };
 
+// Cria um arquivo .json com todos os dados dos concurso da lotofácil
 lotofacilResults().then((data) => {
   fs.writeFile(
     'src/database/results.json',
