@@ -22,7 +22,7 @@ const sequenceFilter = (dezena) => {
 
   return [isItAnIdealNumber(sequenceNumber, idealNumber), `sequências: ${sequenceNumber}`, '4-42 3-28 5-20', countedSequence]
 }
-// const arr = [01, 02, 03, 05, 06, 07, 08, 10, 11, 12, 13, 14] // [ true, 'sequências: 3', '4-42 3-28 5-20', [ 3, 4, 5 ] ]
-// console.log(sequenceFilter(arr))
+const arr = [01, 02, 03, 05, 06, 07, 08, 10, 11, 12, 13, 14] // [ true, 'sequências: 3', '4-42 3-28 5-20', [ 3, 4, 5 ] ]
+console.log(sequenceFilter(arr))
 
 module.exports = sequenceFilter

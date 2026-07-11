@@ -14,8 +14,10 @@
   "init-author-name": "israel-jeronimo",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.0",
-    "lts": "^1.2.0"
+    "lts": "^1.2.0",
+    "node-fetch": "^2.7.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
