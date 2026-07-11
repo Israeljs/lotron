@@ -27,7 +27,6 @@ cd lotron
 Execute o comando abaixo na raiz do projeto para instalar as dependências do projeto.
 
 ```shell
-npm install -g sequelize-cli eslint
 npm install
 ```
 
