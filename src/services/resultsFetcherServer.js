@@ -1,5 +1,7 @@
 const fetch = require('node-fetch')
 const fs = require('fs')
+const oldResults = require('../database/resultss')
+console.log(oldResults[0].numero);
 
 // Retorna o último resultado da lotofácil
 const lastResultFetcher = async () => {
