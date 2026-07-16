@@ -1,24 +1,33 @@
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
 const fs = require('fs')
 
-// Pega um resultado da lotofácil por vez na api da caixa
-const resultsFetcher = async () => {
+// Retorna o último resultado da lotofácil
+const lastResultFetcher = async () => {
   const response = await fetch(
     'https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/'
   );
-  return response.json();
+  return response.json()
 };
+//lastResultFetcher().then((res) => console.log(res))
 
-// pega todos resultados da lotofácil
+// Retorna qualquer resultados da lotofácil
+const anyResultFetcher = async (draw) => {
+  const response = await fetch(
+    `https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/${draw}`
+  );
+  return response.json()
+};
+// anyResultFetcher(3732).then((res) => console.log(res))
+
+// Retorna todos os resultados da lotofácil
 const lotofacilResults = async () => {
   const results = []
-  const concourse = await resultsFetcher()
-  // const number = Number(concourse.numero)
-  const number = 2
-  // console.log(number);
+  const lastResult = await lastResultFetcher()
+  const lastResultNumber = Number(lastResult.numero)
+  // const number = 2
 
-  for (let i = number; i > 0; i--) {
-    results.push(await resultsFetcher())
+  for (let i = lastResultNumber; i > 3732; i--) {
+    results.push(await anyResultFetcher(i))
   }
   return results
 };
@@ -26,11 +35,11 @@ const lotofacilResults = async () => {
 // Cria um arquivo .json com todos os dados dos concurso da lotofácil
 lotofacilResults().then((data) => {
   fs.writeFile(
-    'src/database/results.json',
+    'src/database/resultsss.js',
     JSON.stringify(data, null, 2),
     { encoding: 'utf-8', flag: 'w' },
     (err) => {
-      if (err) console.error(err);
+      if (err) console.error(err)
     }
   );
 });
