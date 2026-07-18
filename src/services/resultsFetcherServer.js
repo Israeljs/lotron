@@ -1,36 +1,54 @@
-const fetch = require('node-fetch');
-const fs = require('fs')
+const fetch = require('node-fetch')
+const fs = require('fs').promises
+const oldResults = require('../database/resultss')
 
-// Pega um resultado da lotofácil por vez na api da caixa
-const resultsFetcher = async () => {
+// Retorna o último resultado da lotofácil
+const lastResultFetcher = async () => {
   const response = await fetch(
     'https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/'
   );
-  return response.json();
+  return response.json()
 };
 
-// pega todos resultados da lotofácil
-const lotofacilResults = async () => {
-  const results = []
-  const concourse = await resultsFetcher()
-  // const number = Number(concourse.numero)
-  const number = 2
-  // console.log(number);
-
-  for (let i = number; i > 0; i--) {
-    results.push(await resultsFetcher())
-  }
-  return results
-};
-
-// Cria um arquivo .json com todos os dados dos concurso da lotofácil
-lotofacilResults().then((data) => {
-  fs.writeFile(
-    'src/database/results.json',
-    JSON.stringify(data, null, 2),
-    { encoding: 'utf-8', flag: 'w' },
-    (err) => {
-      if (err) console.error(err);
-    }
+// Retorna qualquer resultados da lotofácil
+const anyResultFetcher = async (draw) => {
+  const response = await fetch(
+    `https://servicebus2.caixa.gov.br/portaldeloterias/api/lotofacil/${draw}`
   );
-});
+  return response.json()
+};
+
+// Retorna todos os resultados da lotofácil
+const lotofacilResults = async () => {
+  // const allResults = []
+  const lastResult = await lastResultFetcher()
+  const lastResultNumber = Number(lastResult.numero)
+  if (!oldResults.length) {
+    throw new Error('Nenhum resultado encontrado no arquivo.');
+  }
+  const oldResultNumber = Number(oldResults[0].numero)
+  // const number = 2
+  // 3731+1=3732 enquanto for <= 3737 incremente 1
+  for (let i = oldResultNumber + 1; i <= lastResultNumber; i++) {
+    oldResults.unshift(await anyResultFetcher(i))
+  }
+  console.log(oldResults);
+  return oldResults
+
+}
+
+(async () => {
+  try {
+    const data = await lotofacilResults();
+    fs.writeFile(
+      'src/database/resultss.js',
+      `module.exports = ${JSON.stringify(data, null, 2)}`, 
+      {
+        encoding: 'utf-8',
+        flag: 'w'
+      }
+    )
+  } catch (err) {
+    console.error(err)
+  }
+})
